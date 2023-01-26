@@ -9,11 +9,13 @@ csv_files = glob.glob('*.csv')  #
 sensFactor = [27, 29, 30, 33, 36, 38, 40]  #300-900 Hz, in (nV/Pa)
 
 for file in csv_files:
-    save_name = file[0] + '.' + file[2]
+    frequcn = file[0] + '.' + file[2]
     data = np.loadtxt(file, delimiter=',', skiprows=12, encoding='utf-8')
     
     t = data[:, 0]
     p = data[:, 1]
+
+
 
     p /= 10  #プレアンプ
     p /= 30 * 1e-9  #signal scale nV/Pa
