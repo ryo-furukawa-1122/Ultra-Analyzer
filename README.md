@@ -1,4 +1,4 @@
-# AcouosticPressure
+# Ultra-Analyzer
 ## Overview
 Read acoustic pressure with different frequencies
 
