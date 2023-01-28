@@ -3,6 +3,14 @@ import matplotlib.pyplot as plt
 import glob
 from scipy import integrate
 
+# Configures of figure
+plt.rcParams['font.family'] = 'Arial'
+plt.rcParams['font.size'] = 18
+plt.rcParams['axes.linewidth'] = 1.4
+plt.rcParams['figure.subplot.bottom'] = 0.15
+plt.rcParams['figure.subplot.left'] = 0.15
+plt.rcParams['lines.linewidth'] = 2
+
 csv_files = glob.glob('*.csv')  # From AP-Acquisition
 
 sens = [27, 29, 30, 33, 36, 38, 40]  # 300-900 Hz, in (nV/Pa)
@@ -37,6 +45,14 @@ for file in csv_files:
     # csv
     save_csv = np.c_[t, p]
     np.savetxt(f'data/{f}_pressure.csv', save_csv, delimiter=',')
+    
+    # Figure
+    plt.plot(t*1e6, p*1e3, color='black')
+    plt.xlabel('Time (\u03bcs)')
+    plt.ylabel('Acoustic pressure (kPa)')
+    plt.title(f'{f} kHz')
+    plt.savefig(f'data/{f}_pressure.png')
+    plt.close()
 
 # Analyze acoustic pressure
 p_files = glob.glob('data/*.csv')
@@ -75,3 +91,14 @@ for p_file in p_files:
 # Summarize in this channel
 summary_csv = np.c_[frequency, pressure, intensity]
 np.savetxt('data/freq_summary.csv', summary_csv, delimiter=',')
+
+plt.subplot(211)
+plt.plot(frequency, pressure, color='black')
+plt.ylabel('Acoustic pressure (kPa)')
+
+plt.subplot(212)
+plt.plot(frequency, intensity, color='black')
+plt.ylabel('$Intensity (W/cm^2)$')
+plt.xlabel('Frequency (kHz)')
+plt.savefig('data/freq_summary.png')
+plt.close()
