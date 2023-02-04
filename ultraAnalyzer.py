@@ -35,13 +35,6 @@ for file in csv_files:
     p /= 10  # pre amplifire
     p /= scale * 1e-9  #signal scale nV/Pa
 
-    # Figure
-    plt.plot(t * 1e6, p * 1e-3, color='black')
-    plt.xlabel('Time (\u03bcs)')
-    plt.ylabel('Acoustic pressure (kPa)')
-    plt.savefig(f'data/{f}.png')  #save
-    plt.close()
-
     # csv
     save_csv = np.c_[t, p]
     np.savetxt(f'data/{f}_pressure.csv', save_csv, delimiter=',')
